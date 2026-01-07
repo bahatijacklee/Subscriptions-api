@@ -5,9 +5,10 @@ const aj = arcjet({
   // Get your site key from https://app.arcjet.com and set it as an environment
   // variable rather than hard coding.
   key: ARCJET_KEY,
+  characteristics: ["ip.src"],
   rules: [
     // Shield protects your app from common attacks e.g. SQL injection
-    shield({ mode: "LIVE" }),
+    shield({ mode: "DRY_RUN" }),
     // Create a bot detection rule
     detectBot({
       mode: "LIVE", // Use DRY_RUN during development to log only
@@ -22,7 +23,7 @@ const aj = arcjet({
     }),
     // Create a token bucket rate limit. Other algorithms are supported.
     tokenBucket({
-      mode: "DRY_RUN", // Use LIVE to enforce the limit
+      mode: "LIVE", // Use LIVE to enforce the limit
       // Tracked by IP address by default, but this can be customized
       // See https://docs.arcjet.com/fingerprints
       //characteristics: ["ip.src"],
