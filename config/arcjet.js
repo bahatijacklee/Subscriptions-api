@@ -5,13 +5,16 @@ const aj = arcjet({
   // Get your site key from https://app.arcjet.com and set it as an environment
   // variable rather than hard coding.
   key: ARCJET_KEY,
-  characteristics: ["ip.src"],
+  characteristics: [
+    "ip.src", // Track by IP address
+    //"header.user_agent", // Optionally track by User-Agent
+  ],
   rules: [
     // Shield protects your app from common attacks e.g. SQL injection
-    shield({ mode: "DRY_RUN" }),
+    shield({ mode: "LIVE" }),
     // Create a bot detection rule
     detectBot({
-      mode: "LIVE", // Use DRY_RUN during development to log only
+      mode: "DRY_RUN", // Use DRY_RUN during development to log only
       // Block all bots except the following
       allow: [
         "CATEGORY:SEARCH_ENGINE", // Google, Bing, etc
